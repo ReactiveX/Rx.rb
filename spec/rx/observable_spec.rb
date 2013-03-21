@@ -58,16 +58,6 @@ describe RX::Observable do
     specify { @observer.should be_completed }
   end
 
-  pending '#to_observable' do
-    let(:range_to_observable) { (1..10).to_observable }
-
-    before { range_to_observable.subscribe(@observer) }
-
-    specify { @observer.next.should == 9 }
-    specify { @observer.should have_no_error }
-    specify { @observer.should be_completed }
-  end
-
   describe '#where' do
     let(:observable_range) { RX::Observable.range(0, 10) }
     let(:observable_range_where) { observable_range.where {|x| x % 2 == 0} }
