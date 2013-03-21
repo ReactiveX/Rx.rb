@@ -3,6 +3,7 @@
 require 'rx/auto_detach_observer'
 require 'rx/auto_detach_disposable'
 require 'rx/disposable'
+require 'rx/mutable_disposable'
 require 'rx/scheduler'
 
 module RX
