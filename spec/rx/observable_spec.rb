@@ -1,4 +1,5 @@
 require 'rx'
+require 'support/matchers'
 require 'support/stubbed_observer'
 
 describe RX::Observable do
@@ -12,8 +13,8 @@ describe RX::Observable do
     before { empty_observable.subscribe(@observer) }
 
     specify { @observer.next.should == nil }
-    specify { @observer.error.should == nil }
-    specify { @observer.completed.should == true }
+    specify { @observer.should have_no_error }
+    specify { @observer.should be_completed }
   end
 
   describe '#return' do
@@ -22,8 +23,8 @@ describe RX::Observable do
     before { static_observable.subscribe(@observer) }
 
     specify { @observer.next.should == 42 }
-    specify { @observer.error.should == nil }
-    specify { @observer.completed.should == true }
+    specify { @observer.should have_no_error }
+    specify { @observer.should be_completed }
   end
 
   describe '#throw' do
@@ -34,7 +35,7 @@ describe RX::Observable do
 
     specify { @observer.next.should == nil }
     specify { @observer.error.should == error }
-    specify { @observer.completed.should == false }
+    specify { @observer.should_not be_completed }
   end
 
   describe '#generate' do
@@ -43,8 +44,8 @@ describe RX::Observable do
     before { generated_observable_range.subscribe(@observer) }
 
     specify { @observer.next.should == 9 }
-    specify { @observer.error.should == nil }
-    specify { @observer.completed.should == true }
+    specify { @observer.should have_no_error }
+    specify { @observer.should be_completed }
   end
 
   describe '#range' do
@@ -53,8 +54,8 @@ describe RX::Observable do
     before { explicit_observable_range.subscribe(@observer) }
 
     specify { @observer.next.should == 9 }
-    specify { @observer.error.should == nil }
-    specify { @observer.completed.should == true }
+    specify { @observer.should have_no_error }
+    specify { @observer.should be_completed }
   end
 
   pending '#to_observable' do
@@ -63,8 +64,8 @@ describe RX::Observable do
     before { range_to_observable.subscribe(@observer) }
 
     specify { @observer.next.should == 9 }
-    specify { @observer.error.should == nil }
-    specify { @observer.completed.should == true }
+    specify { @observer.should have_no_error }
+    specify { @observer.should be_completed }
   end
 
   describe '#where' do
@@ -74,8 +75,8 @@ describe RX::Observable do
     before { observable_range_where.subscribe(@observer) }
 
     specify { @observer.next.should == 8 }
-    specify { @observer.error.should == nil }
-    specify { @observer.completed.should == true }
+    specify { @observer.should have_no_error }
+    specify { @observer.should be_completed }
   end
 
   describe '#select' do
@@ -86,8 +87,8 @@ describe RX::Observable do
     before { observable_range_where_select.subscribe(@observer) }
 
     specify { @observer.next.should == 72 }
-    specify { @observer.error.should == nil }
-    specify { @observer.completed.should == true }
+    specify { @observer.should have_no_error }
+    specify { @observer.should be_completed }
   end
 
   pending '#select_many' do
@@ -97,8 +98,8 @@ describe RX::Observable do
     before { merged_range_observables.subscribe(@observer) }
 
     specify { @observer.next.should == 1 }
-    specify { @observer.error.should == nil }
-    specify { @observer.completed.should == true }
+    specify { @observer.should have_no_error }
+    specify { @observer.should be_completed }
   end
 
   describe '#finally' do
@@ -108,8 +109,8 @@ describe RX::Observable do
     before { obervable_with_finally.subscribe(@observer) }
 
     specify { @observer.next.should == 42 }
-    specify { @observer.error.should == nil }
-    specify { @observer.completed.should == true }
+    specify { @observer.should have_no_error }
+    specify { @observer.should be_completed }
     specify { @finally_called.should == true }
   end
 end
