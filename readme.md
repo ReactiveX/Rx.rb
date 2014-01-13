@@ -7,7 +7,7 @@ This project is a mirror of the [CodePlex](http://rxrb.codeplex.com/) repository
 
 ## About the Reactive Extensions ##
 
-The Reactive Extensions for Ruby (Rx.rb) is a set of libraries for composing asynchronous and event-based programs using observable sequences and fluent query operators modeled after Language Integrated Queries ([LINQ](http://en.wikipedia.org/wiki/LINQ)). Using Rx.rb, developers represent asynchronous data streams with Observables, query asynchronous data streams using LINQ operators, and parameterize the concurrency in the asynchronous data streams using Schedulers. Simply put, RxJS = Observables + LINQ + Schedulers.
+The Reactive Extensions for Ruby (Rx.rb) is a set of libraries for composing asynchronous and event-based programs using observable sequences and fluent query operators modeled after Language Integrated Queries ([LINQ](http://en.wikipedia.org/wiki/LINQ)). Using Rx.rb, developers represent asynchronous data streams with Observables, query asynchronous data streams using LINQ operators, and parameterize the concurrency in the asynchronous data streams using Schedulers. Simply put, Rx.rb = Observables + LINQ + Schedulers.
 
 Using Rx.rb, you can represent multiple asynchronous data streams (that come from diverse sources, e.g., stock quote, tweets, computer events, web service requests, etc.), and subscribe to the event stream using the Observer object. The Observable notifies the subscribed Observer instance whenever an event occurs.
 
