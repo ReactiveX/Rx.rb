@@ -1,8 +1,7 @@
 # Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 require 'thread'
-require 'minitest/autorun'
-require 'rx'
+require_relative 'test_helper'
 
 class TestDefaultScheduler < MiniTest::Unit::TestCase
 
@@ -48,7 +47,7 @@ class TestDefaultScheduler < MiniTest::Unit::TestCase
     n = 0
     fail = false
 
-    d = s.schedule_periodic_with_state(0, 0.05, lambda {|x| 
+    d = s.schedule_periodic_with_state(0, 0.05, lambda {|x|
       begin
         if n > 1
           n += 1
