@@ -1,8 +1,7 @@
 # Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 require 'thread'
-require 'minitest/autorun'
-require 'rx'
+require_relative 'test_helper'
 
 module RX
   # Extend to include ensure trampoline
@@ -135,6 +134,6 @@ class TestCurrentThreadScheduler < MiniTest::Unit::TestCase
 
     assert ran1
     refute ran2
-  end     
+  end
 
 end

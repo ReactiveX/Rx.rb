@@ -1,8 +1,7 @@
 # Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 require 'thread'
-require 'minitest/autorun'
-require 'rx'
+require_relative 'test_helper'
 
 class VirtualSchedulerTestScheduler < RX::VirtualTimeScheduler
   def initialize(clock = '')
@@ -23,7 +22,7 @@ class VirtualSchedulerTestScheduler < RX::VirtualTimeScheduler
   # Converts the time span value to a relative time value.
   def to_relative(time_span)
     (time_span % 65535)[0].ord
-  end  
+  end
 end
 
 class TestVirtualTimeScheduler < MiniTest::Unit::TestCase

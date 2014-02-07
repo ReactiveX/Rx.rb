@@ -14,10 +14,10 @@ def require_all(path)
   end
 end
 
-require_all 'rx/internal/'
-require_all 'rx/concurrency/'
-require_all 'rx/subscriptions/'
-require_all 'rx/core/'
-require_all 'rx/operators'
-require_all 'rx/subjects'
-require_all 'rx/testing'
+require_all 'RX/internal/'
+require_all 'RX/concurrency/'
+require_all 'RX/subscriptions/'
+require_all 'RX/core/'
+require_all 'RX/operators'
+require_all 'RX/subjects'
+require_all 'RX/testing'

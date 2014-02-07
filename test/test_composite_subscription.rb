@@ -1,7 +1,6 @@
 # Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-require 'minitest/autorun'
-require 'rx'
+require_relative 'test_helper'
 
 class TestCompositeSubscription < MiniTest::Unit::TestCase
 
@@ -42,7 +41,7 @@ class TestCompositeSubscription < MiniTest::Unit::TestCase
     g.push d2
 
     assert_equal 2, g.length
-    assert g.include? d2        
+    assert g.include? d2
   end
 
   def test_push_after_dispose
