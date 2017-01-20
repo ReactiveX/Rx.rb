@@ -11,14 +11,17 @@ module Rx
 
       AnonymousObservable.new do |observer|
         latest = nil
-        sample_subscription = sampler.subscribe(
-          lambda { |x|
+
+        sampler_observer = Observer.configure do |o|
+          o.on_next do |x|
             observer.on_next latest unless latest.nil?
             latest = nil
-          },
-          lambda { |err| observer.on_error err },
-          lambda { observer.on_completed }
-        )
+          end
+          o.on_error(&observer.method(:on_error))
+          o.on_completed(&observer.method(:on_completed))
+        end
+
+        sampler_subscription = sampler.subscribe(sampler_observer)
 
         self_observer = Rx::Observer.configure do |me|
           me.on_next do |value|
@@ -30,7 +33,7 @@ module Rx
 
         self_subscription = subscribe self_observer
 
-        CompositeSubscription.new [sample_subscription, self_subscription]
+        CompositeSubscription.new [sampler_subscription, self_subscription]
       end
     end
   end
