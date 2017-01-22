@@ -11,11 +11,15 @@ module Rx
 
       AnonymousObservable.new do |observer|
         latest = nil
-
+        gate = Mutex.new
         sampler_observer = Observer.configure do |o|
           o.on_next do |x|
-            observer.on_next latest unless latest.nil?
-            latest = nil
+            to_emit = nil
+            gate.synchronize do
+              to_emit = latest
+              latest = nil
+            end
+            observer.on_next to_emit unless to_emit.nil?
           end
           o.on_error(&observer.method(:on_error))
           o.on_completed(&observer.method(:on_completed))
@@ -25,7 +29,7 @@ module Rx
 
         self_observer = Rx::Observer.configure do |me|
           me.on_next do |value|
-            latest = value
+            gate.synchronize { latest = value }
           end
           me.on_error(&observer.method(:on_error))
           me.on_completed(&observer.method(:on_completed))
