@@ -54,6 +54,28 @@ class TestObservableCreation < Minitest::Test
     assert_messages msgs, res.messages
   end
 
+  def test_with_recipe
+    scheduler = Rx::TestScheduler.new
+
+    res = scheduler.configure do
+      scheduler.create_cold_observable(
+        on_next(100, 'left'),
+        on_completed(200)
+      ).sample(
+        scheduler.create_cold_observable(
+          on_next(150, 'right'),
+          on_completed(200)
+        )
+      ) { |left, right| [left, right] }
+    end
+
+    msgs = [
+      on_next(SUBSCRIBED + 150, ['left', 'right']),
+      on_completed(400)
+    ]
+    assert_messages msgs, res.messages
+  end
+
   def test_source_errors
     # Verify unsubscribe sampler
     scheduler = Rx::TestScheduler.new

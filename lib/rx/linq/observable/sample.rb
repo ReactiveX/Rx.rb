@@ -2,7 +2,7 @@ module Rx
   module Observable
     # Return the latest item from this observable when another observable
     # emits an item.
-    def sample(intervalOrSampler, scheduler = DefaultScheduler.instance)
+    def sample(intervalOrSampler, scheduler = DefaultScheduler.instance, &recipe)
       sampler = if intervalOrSampler.is_a? Numeric
         Observable.interval(intervalOrSampler, scheduler)
       else
@@ -13,13 +13,16 @@ module Rx
         latest = nil
         gate = Mutex.new
         sampler_observer = Observer.configure do |o|
-          o.on_next do |x|
+          o.on_next do |sampler_data|
             to_emit = nil
             gate.synchronize do
               to_emit = latest
               latest = nil
             end
-            observer.on_next to_emit unless to_emit.nil?
+            unless to_emit.nil?
+              to_emit = recipe.call(to_emit, sampler_data) unless recipe.nil?
+              observer.on_next to_emit
+            end
           end
           o.on_error(&observer.method(:on_error))
           o.on_completed(&observer.method(:on_completed))
