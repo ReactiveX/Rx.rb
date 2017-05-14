@@ -7,21 +7,23 @@ $:.unshift File.dirname(__FILE__) # For use/testing when no gem is installed
 # path - The String relative path from here to the directory.
 #
 # Returns nothing.
-def require_all(path)
-  glob = File.join(File.dirname(__FILE__), path, '*.rb')
-  Dir[glob].sort.each do |f|
-    require f
+module RxRequireAll
+  def self.require_all(path)
+    glob = File.join(File.dirname(__FILE__), path, '*.rb')
+    Dir[glob].sort.each do |f|
+      require f
+    end
   end
 end
 
-require_all 'rx/internal/'
-require_all 'rx/concurrency/'
-require_all 'rx/subscriptions/'
-require_all 'rx/core/'
-require_all 'rx/linq/'
-require_all 'rx/linq/observable/'
-require_all 'rx/operators/'
-require_all 'rx/subjects/'
-require_all 'rx/testing/'
-require_all 'rx/joins/'
-require_all 'rx/'
+RxRequireAll.require_all 'rx/internal/'
+RxRequireAll.require_all 'rx/concurrency/'
+RxRequireAll.require_all 'rx/subscriptions/'
+RxRequireAll.require_all 'rx/core/'
+RxRequireAll.require_all 'rx/linq/'
+RxRequireAll.require_all 'rx/linq/observable/'
+RxRequireAll.require_all 'rx/operators/'
+RxRequireAll.require_all 'rx/subjects/'
+RxRequireAll.require_all 'rx/testing/'
+RxRequireAll.require_all 'rx/joins/'
+RxRequireAll.require_all 'rx/'
