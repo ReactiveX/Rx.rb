@@ -1,21 +1,15 @@
 # Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 require 'test_helper'
+require 'rx/subscriptions/helpers/await_helpers'
 
 class PeriodicTestClass
   include Rx::PeriodicScheduler
 end
 
-def await_array_length(array, expected, interval)
-  sleep (expected * interval) * 0.9
-  deadline = Time.now + interval * (expected + 1)
-  while Time.now < deadline
-    break if array.length == expected
-    sleep interval / 10
-  end
-end
-
 class TestPeriodicScheduler < Minitest::Test
+  include AwaitHelpers
+
   def setup
     @scheduler = PeriodicTestClass.new
   end

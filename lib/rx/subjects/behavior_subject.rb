@@ -31,8 +31,8 @@ module Rx
 
     # Gets the current value or throws an exception.
     def value
-      gate.synchronize do 
-        self.check_unsubscribed
+      gate.synchronize do
+        check_unsubscribed
         raise @error if @error
         @value
       end
@@ -41,8 +41,8 @@ module Rx
     # Notifies all subscribed observers about the end of the sequence.
     def on_completed
       os = nil
-      @gate.synchronize do 
-        self.check_unsubscribed
+      @gate.synchronize do
+        check_unsubscribed
 
         unless @stopped
           os = @observers.clone
@@ -60,7 +60,7 @@ module Rx
 
       os = nil
       @gate.synchronize do
-        self.check_unsubscribed
+        check_unsubscribed
 
         unless @stopped
           os = @observers.clone
@@ -77,7 +77,7 @@ module Rx
     def on_next(value) 
       os = nil
       @gate.synchronize do
-        self.check_unsubscribed
+        check_unsubscribed
         @value = value
         os = @observers.clone unless @stopped
       end
@@ -91,7 +91,7 @@ module Rx
 
       err = nil
       gate.synchronize do
-        self.check_unsubscribed
+        check_unsubscribed
 
         unless @stopped
           observers.push(observer)

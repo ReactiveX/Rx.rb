@@ -10,5 +10,6 @@ rvm:
   - 2.3.0
   - jruby-19mode # JRuby in 1.9 mode
   - rbx-2.6
+  - rbx-3.82
 before_install:
-  - gem update bundler
+  - ruby --version | grep -qF 'rubinius 2.6' || gem update bundler
