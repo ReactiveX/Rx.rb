@@ -22,7 +22,7 @@ module Rx
           },
           lambda {|err|
             begin
-              on_error_func && on_error_func.call(x)
+              on_error_func && on_error_func.call(err)
             rescue => e
               observer.on_error e
             end
