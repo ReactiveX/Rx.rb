@@ -1,8 +1,8 @@
 # Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 module Rx
-  # Represents a disposable resource whose disposal invocation will be scheduled on the specified scheduler
-  class ScheduledDisposable
+  # Represents a subscription that is unsubscribed on the specified scheduler
+  class ScheduledSubscription
 
     attr_reader :scheduler, :subscription
 
@@ -21,12 +21,12 @@ module Rx
 
     # Unsubscribes the wrapped subscription on the provided scheduler.
     def unsubscribe
-      @scheduler.schedule lambda do
+      @scheduler.schedule lambda {
         unless @subscription.nil?
           @subscription.unsubscribe
           @subscription = nil
         end
-      end
+      }
     end
   end
 end
