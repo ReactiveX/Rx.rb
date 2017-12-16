@@ -63,7 +63,7 @@ class ArrayObservable
     index = 0
 
     while index < @array.length
-      change #notify of change
+      changed #notify of change
       notify_observers @array[index] # send the current value
       index += 1
       sleep 1
@@ -81,8 +81,9 @@ class ArrayObserver
   end
 end
 
-observable = ArrayObservable [1,2]
+observable = ArrayObservable.new([1,2])
 observer = ArrayObserver.new(observable)
+observable.run
 # 1
 # 2
 ```
